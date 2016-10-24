@@ -1,0 +1,24 @@
+{
+  "name": "rpc-user-stats",
+  "version": "1.0.0",
+  "description": "Update user match and tournament statistics",
+  "author": "Brian Hammond <brian@fictorial.com>",
+  "license": "MIT",
+  "dependencies": {
+    "elo-rank": "^1.0.0",
+    "lodash": "^4.16.4",
+    "normalize-user-alias": "^1.0.0"
+  },
+  "devDependences": {
+    "ioredis": "^2.4.0",
+    "rpc-over-ws": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fictorial/rpc-user-stats.git"
+  },
+  "homepage": "https://github.com/fictorial/rpc-user-stats.git",
+  "bugs": {
+    "url": "https://github.com/fictorial/rpc-user-stats/issues"
+  }
+}

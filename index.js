@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const elo = require('elo-rank')()
 const normalize = require('normalize-user-alias')
+const EventEmitter = require('events')
 
 // NB: clientId === normalized user alias
 
@@ -17,6 +18,8 @@ function getEloRating(key) {
 }
 
 module.exports = function ({ redis, defaultElo, tournamentSize }) {
+  const emitter = new EventEmitter()
+
   return {
     getUserStats: ({ alias, rules }) => getStats(normalize(alias), rules),
 
@@ -79,7 +82,7 @@ module.exports = function ({ redis, defaultElo, tournamentSize }) {
             })
           })
 
-          return {
+          const ret = {
             rules,
             payout,
             stats: {
@@ -95,8 +98,13 @@ module.exports = function ({ redis, defaultElo, tournamentSize }) {
               }
             }
           }
+
+          emitter.emit('match-ended', ret)
+          return ret
         })
       })
-    }
+    },
+
+    emitter
   }
 }

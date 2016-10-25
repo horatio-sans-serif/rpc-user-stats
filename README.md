@@ -26,13 +26,16 @@ have payouts.
     const Redis = require('ioredis')
     const redis = new Redis(process.env.REDIS_URL)
 
-    const handlers = require('rpc-user-stats')({
+    const stats = require('rpc-user-stats')({
       redis,
       tournamentSize: 8,
       defaultElo: 1200
     })
 
-    require('rpc-over-ws')(handlers)
+    require('rpc-over-ws')({
+      getUserStats: stats.getUserStats,
+      didWin: stats.didWin
+    })
 
 ## API
 
@@ -76,3 +79,37 @@ have payouts.
       coinsWon,
       eloRating
     }>
+
+## Events
+
+    stats.emitter.on('match-ended', {
+      rules,
+      payout,
+      stats: {
+        winner: {
+          alias,
+          stats: {
+            matchesPlayed,
+            matchesWon,
+            tournamentsPlayed,
+            tournamentsWon,
+            coinsWon,
+            eloRating
+          },
+          eloPrevious,
+          balance
+        },
+        loser: {
+          alias,
+          stats: {
+            matchesPlayed,
+            matchesWon,
+            tournamentsPlayed,
+            tournamentsWon,
+            coinsWon,
+            eloRating
+          },
+          eloPrevious,
+        },
+      }
+    })

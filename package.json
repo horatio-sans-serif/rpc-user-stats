@@ -1,6 +1,6 @@
 {
   "name": "rpc-user-stats",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Update user match and tournament statistics",
   "author": "Brian Hammond <brian@fictorial.com>",
   "license": "MIT",
